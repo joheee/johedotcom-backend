@@ -1,0 +1,49 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Profile {
+  """primary key for profile"""
+  id: String
+  picture: String
+  description: String
+  opening: String
+}
+
+type Socialmedia {
+  """id for social media"""
+  id: String
+  url: String
+  username: String
+}
+
+type Query {
+  profile: Profile!
+  socialmedias: [Socialmedia!]!
+  socialmedia(id: String!): Socialmedia!
+}
+
+type Mutation {
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  updateProfile(updateProfileInput: CreateProfileInput!): Profile!
+  createSocialmedia(createSocialmediaInput: CreateSocialmediaInput!): Socialmedia!
+  updateSocialmedia(updateSocialmediaInput: UpdateSocialmediaInput!): Socialmedia!
+  removeSocialmedia(id: String!): Socialmedia!
+}
+
+input CreateProfileInput {
+  picture: String!
+  description: String!
+  opening: String!
+}
+
+input CreateSocialmediaInput {
+  url: String!
+  username: String!
+}
+
+input UpdateSocialmediaInput {
+  url: String
+  username: String
+  id: String!
+}
