@@ -19,7 +19,7 @@ export class SocialmediaResolver {
   }
 
   @Query(() => Socialmedia, { name: 'socialmedia' })
-  findOne(@Args('id', { type: () => String }) id: String) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.socialmediaService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class SocialmediaResolver {
   }
 
   @Mutation(() => Socialmedia)
-  removeSocialmedia(@Args('id', { type: () => String }) id: String) {
+  removeSocialmedia(@Args('id', { type: () => String }) id: string) {
     return this.socialmediaService.remove(id);
   }
 }

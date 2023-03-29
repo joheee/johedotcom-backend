@@ -32,16 +32,16 @@ export class SocialmediaService {
     return find
   }
 
-  async update(id: string, updateSocialmediaInput: UpdateSocialmediaInput) : Promise<Socialmedia> {
+  async update(id: String, updateSocialmediaInput: UpdateSocialmediaInput) : Promise<Socialmedia> {
     const find = await this.prisma.socialMedia.findFirst({
       where:{
-        id:id
+        id:id as string
       }
     })
     if(!find) return new Socialmedia()
     return await this.prisma.socialMedia.update({
       where:{
-        id:id
+        id:id as string
       }, data:{
         url:updateSocialmediaInput.url as string,
         username:updateSocialmediaInput.username as string
