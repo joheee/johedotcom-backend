@@ -3,11 +3,14 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateProfileInput {
   @Field(() => String)
-  picture:String
+  picture:string
   
   @Field(() => String)
-  description:String
+  description:string
 
   @Field(() => String)
-  opening:String
+  opening:string
+
+  @Field(() => String)
+  logo:string
 }

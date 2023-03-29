@@ -15,6 +15,7 @@ model Profile {
   picture     String
   description String
   opening     String
+  logo        String
 }
 
 model SocialMedia {
@@ -33,11 +34,11 @@ model Work {
 }
 
 model WorkTag {
-  id     String @id @default(uuid())
-  workId String
-  tagId  String
-  Work   Work   @relation(fields: [workId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  Tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id     String  @id @default(uuid())
+  Work   Work?   @relation(fields: [workId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  workId String?
+  Tag    Tag?    @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tagId  String?
 }
 
 model Tag {

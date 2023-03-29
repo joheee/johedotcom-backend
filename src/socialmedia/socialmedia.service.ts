@@ -12,8 +12,8 @@ export class SocialmediaService {
     if(!createSocialmediaInput.url || !createSocialmediaInput.username) return new Socialmedia()
     return await this.prisma.socialMedia.create({
       data:{
-        url:createSocialmediaInput.url as string,
-        username:createSocialmediaInput.username as string
+        url:createSocialmediaInput.url,
+        username:createSocialmediaInput.username
       }
     })
   }
@@ -32,19 +32,19 @@ export class SocialmediaService {
     return find
   }
 
-  async update(id: String, updateSocialmediaInput: UpdateSocialmediaInput) : Promise<Socialmedia> {
+  async update(id: string, updateSocialmediaInput: UpdateSocialmediaInput) : Promise<Socialmedia> {
     const find = await this.prisma.socialMedia.findFirst({
       where:{
-        id:id as string
+        id:id
       }
     })
     if(!find) return new Socialmedia()
     return await this.prisma.socialMedia.update({
       where:{
-        id:id as string
+        id:id
       }, data:{
-        url:updateSocialmediaInput.url as string,
-        username:updateSocialmediaInput.username as string
+        url:updateSocialmediaInput.url,
+        username:updateSocialmediaInput.username
       }
     })
   }

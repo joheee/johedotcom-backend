@@ -8,6 +8,4 @@ export class CreateWorkInput {
   title:string
   @Field(() => String, { nullable:true })
   description:string
-  @Field(() => String, { nullable:true })
-  createdAt:string
 }

@@ -5,5 +5,5 @@ export class CreateTagInput {
   @Field(() => String, { nullable:true })
   title:string
   @Field(() => String, { nullable:true })
-  workId:string
+  workId?:string
 }

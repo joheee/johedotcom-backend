@@ -1,26 +1,79 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTagInput } from './dto/create-tag.input';
 import { UpdateTagInput } from './dto/update-tag.input';
+import { Tag } from './entities/tag.entity';
 
 @Injectable()
 export class TagService {
-  create(createTagInput: CreateTagInput) {
-    return 'This action adds a new tag';
+  constructor(private prisma:PrismaService){}
+
+  async create(createTagInput: CreateTagInput) : Promise<Tag> {
+    if(!createTagInput.title) return new Tag()
+    return await this.prisma.tag.create({
+      data:{
+        title:createTagInput.title
+      }
+    })
   }
 
-  findAll() {
-    return `This action returns all tag`;
+  async findAll() : Promise<Tag[]> {
+    return await this.prisma.tag.findMany({
+      include:{workTags:{
+        include:{
+          Work:true,
+          Tag:true
+        }
+      }}
+    })
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} tag`;
+  async findOne(id: string) : Promise<Tag> {
+    const find = await this.prisma.tag.findFirst({
+      where:{id:id},
+      include:{workTags:{
+        include:{
+          Work:true,
+          Tag:true
+        }
+      }}
+    })
+    if(!find) return new Tag()
+    return find
   }
 
-  update(id: string, updateTagInput: UpdateTagInput) {
-    return `This action updates a #${id} tag`;
+  async update(id: string, updateTagInput: UpdateTagInput) : Promise<Tag> {
+    const find = await this.prisma.tag.findFirst({
+      where:{id:id}
+    })
+    if(!find) return new Tag()
+    return await this.prisma.tag.update({
+      where:{id:id},
+      data:{
+        title:updateTagInput.title
+      },
+      include:{workTags:{
+        include:{
+          Work:true,
+          Tag:true
+        }
+      }}
+    })
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} tag`;
+  async remove(id: string) : Promise<Tag> {
+    const find = await this.prisma.tag.findFirst({
+      where:{id:id}
+    })
+    if(!find) return new Tag()
+    return await this.prisma.tag.delete({
+      where:{id:id},
+      include:{workTags:{
+        include:{
+          Work:true,
+          Tag:true
+        }
+      }}
+    })
   }
 }

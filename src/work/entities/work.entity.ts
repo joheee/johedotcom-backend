@@ -1,9 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Tag } from 'src/tag/entities/tag.entity';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { WorkTag } from 'src/work-tag/entities/work-tag.entity';
 
 @ObjectType()
 export class Work {
-  @Field(() => String, { description: 'primary key for work',nullable:true })
+  @Field(() => String, { description: 'entity work',nullable:true })
   id:string
   @Field(() => String, { nullable:true })
   picture:string
@@ -11,8 +11,8 @@ export class Work {
   title:string
   @Field(() => String, { nullable:true })
   description:string
-  @Field(() => String, { nullable:true })
-  createdAt:string
-  @Field(() => [Tag], { nullable:true })
-  tags:Tag[]
+  @Field(() => Date, { nullable:true })
+  createdAt:Date
+  @Field(() => [WorkTag], { nullable:true })
+  workTags?:WorkTag[]
 }

@@ -3,9 +3,9 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateSocialmediaInput {
   @Field (() => String)
-  url:String
+  url:string
 
   @Field(() => String)
-  username:String
+  username:string
 
 }

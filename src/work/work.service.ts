@@ -1,26 +1,83 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateWorkInput } from './dto/create-work.input';
 import { UpdateWorkInput } from './dto/update-work.input';
+import { Work } from './entities/work.entity';
 
 @Injectable()
 export class WorkService {
-  create(createWorkInput: CreateWorkInput) {
-    return 'This action adds a new work';
+  constructor(private prisma:PrismaService){}
+
+  async create(createWorkInput: CreateWorkInput) : Promise<Work> {
+    if(!createWorkInput.description || !createWorkInput.picture || !createWorkInput.title) return new Work()
+    return await this.prisma.work.create({
+      data:{
+        description:createWorkInput.description,
+        picture:createWorkInput.picture,
+        title:createWorkInput.title
+      }
+    })
   }
 
-  findAll() {
-    return `This action returns all work`;
+  async findAll() : Promise<Work[]> {
+    return await this.prisma.work.findMany({
+      include:{workTags:{
+        include:{
+          Tag:true,
+          Work:true
+        }
+      }}
+    })
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} work`;
+  async findOne(id: string) : Promise<Work> {
+    const find = await this.prisma.work.findFirst({
+      where:{id:id},
+      include:{workTags:{
+        include:{
+          Tag:true,
+          Work:true
+        }
+      }}
+    })
+    if(!find) return new Work()
+    return find
   }
 
-  update(id: string, updateWorkInput: UpdateWorkInput) {
-    return `This action updates a #${id} work`;
+  async update(id: string, updateWorkInput: UpdateWorkInput) : Promise<Work> {
+    const find = await this.prisma.work.findFirst({
+      where:{id:id},
+    })
+    if(!find) return new Work()
+    return await this.prisma.work.update({
+      where:{id:id},
+      data:{
+        description:updateWorkInput.description,
+        picture:updateWorkInput.picture,
+        title:updateWorkInput.title
+      },
+      include:{workTags:{
+        include:{
+          Tag:true,
+          Work:true
+        }
+      }}
+    })
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} work`;
+  async remove(id: string) : Promise<Work> {
+    const find = await this.prisma.work.findFirst({
+      where:{id:id},
+    })
+    if(!find) return new Work()
+    return await this.prisma.work.delete({
+      where:{id:id},
+      include:{workTags:{
+        include:{
+          Tag:true,
+          Work:true
+        }
+      }}
+    })
   }
 }

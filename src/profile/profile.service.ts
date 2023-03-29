@@ -8,13 +8,14 @@ export class ProfileService {
   constructor(private prisma:PrismaService){}
 
   async create(createProfileInput: CreateProfileInput) : Promise<Profile> {
-    if(!createProfileInput.description || !createProfileInput.opening || !createProfileInput.picture) return new Profile()
+    if(!createProfileInput.description || !createProfileInput.opening || !createProfileInput.picture || !createProfileInput.logo) return new Profile()
 
     return await this.prisma.profile.create({
       data:{
-        description:createProfileInput.description as string,
-        opening:createProfileInput.opening as string,
-        picture:createProfileInput.picture as string
+        description:createProfileInput.description,
+        opening:createProfileInput.opening,
+        picture:createProfileInput.picture,
+        logo:createProfileInput.logo
       }
     });
   }
@@ -31,9 +32,10 @@ export class ProfileService {
     return await this.prisma.profile.update({
       where:{id:find.id},
       data:{
-        description:updateProfileInput.description as string,
-        opening:updateProfileInput.opening as string,
-        picture:updateProfileInput.picture as string
+        description:updateProfileInput.description,
+        opening:updateProfileInput.opening,
+        picture:updateProfileInput.picture,
+        logo:updateProfileInput.logo
       }
     })
   }
