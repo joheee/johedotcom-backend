@@ -8,6 +8,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ProfileModule } from './profile/profile.module';
 import { SocialmediaModule } from './socialmedia/socialmedia.module';
+import { WorkModule } from './work/work.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { SocialmediaModule } from './socialmedia/socialmedia.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     })    
-    ,PrismaModule, ProfileModule, SocialmediaModule],
+    ,PrismaModule, ProfileModule, SocialmediaModule, WorkModule, TagModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 }) 

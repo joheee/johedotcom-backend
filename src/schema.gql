@@ -17,10 +17,31 @@ type Socialmedia {
   username: String
 }
 
+type Tag {
+  """primary key for tag"""
+  id: String
+  title: String
+  work: Work
+}
+
+type Work {
+  """primary key for work"""
+  id: String
+  picture: String
+  title: String
+  description: String
+  createdAt: String
+  tags: [Tag!]
+}
+
 type Query {
   profile: Profile!
   socialmedias: [Socialmedia!]!
   socialmedia(id: String!): Socialmedia!
+  works: [Work!]!
+  work(id: String!): Work!
+  tags: [Tag!]!
+  tag(id: String!): Tag!
 }
 
 type Mutation {
@@ -29,6 +50,12 @@ type Mutation {
   createSocialmedia(createSocialmediaInput: CreateSocialmediaInput!): Socialmedia!
   updateSocialmedia(updateSocialmediaInput: UpdateSocialmediaInput!): Socialmedia!
   removeSocialmedia(id: String!): Socialmedia!
+  createWork(createWorkInput: CreateWorkInput!): Work!
+  updateWork(updateWorkInput: UpdateWorkInput!): Work!
+  removeWork(id: String!): Work!
+  createTag(createTagInput: CreateTagInput!): Tag!
+  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  removeTag(id: String!): Tag!
 }
 
 input CreateProfileInput {
@@ -45,5 +72,31 @@ input CreateSocialmediaInput {
 input UpdateSocialmediaInput {
   url: String
   username: String
+  id: String!
+}
+
+input CreateWorkInput {
+  picture: String
+  title: String
+  description: String
+  createdAt: String
+}
+
+input UpdateWorkInput {
+  picture: String
+  title: String
+  description: String
+  createdAt: String
+  id: String!
+}
+
+input CreateTagInput {
+  title: String
+  workId: String
+}
+
+input UpdateTagInput {
+  title: String
+  workId: String
   id: String!
 }
