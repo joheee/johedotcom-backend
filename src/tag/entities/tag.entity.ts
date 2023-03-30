@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { WorkTag } from 'src/work-tag/entities/work-tag.entity';
+import { WorkBlogTag } from 'src/work-blog-tag/entities/work-blog-tag.entity';
 
 @ObjectType()
 export class Tag {
@@ -7,6 +7,6 @@ export class Tag {
   id:string
   @Field(() => String, { nullable:true })
   title:string
-  @Field(() => [WorkTag], { nullable:true })
-  workTags?:WorkTag[]
+  @Field(() => [WorkBlogTag], { nullable:true })
+  workBlogTags?:WorkBlogTag[]
 }

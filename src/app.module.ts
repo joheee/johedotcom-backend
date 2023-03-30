@@ -10,7 +10,8 @@ import { ProfileModule } from './profile/profile.module';
 import { SocialmediaModule } from './socialmedia/socialmedia.module';
 import { WorkModule } from './work/work.module';
 import { TagModule } from './tag/tag.module';
-import { WorkTagModule } from './work-tag/work-tag.module';
+import { WorkBlogTagModule } from './work-blog-tag/work-blog-tag.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { WorkTagModule } from './work-tag/work-tag.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     })    
-    ,PrismaModule, ProfileModule, SocialmediaModule, WorkModule, TagModule, WorkTagModule],
+    ,PrismaModule, ProfileModule, SocialmediaModule, WorkModule, TagModule, WorkBlogTagModule, BlogModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 }) 

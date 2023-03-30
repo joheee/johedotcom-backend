@@ -21,10 +21,10 @@ export class WorkService {
 
   async findAll() : Promise<Work[]> {
     return await this.prisma.work.findMany({
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Tag:true,
-          Work:true
+          Work:true,
         }
       }}
     })
@@ -33,7 +33,7 @@ export class WorkService {
   async findOne(id: string) : Promise<Work> {
     const find = await this.prisma.work.findFirst({
       where:{id:id},
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Tag:true,
           Work:true
@@ -56,7 +56,7 @@ export class WorkService {
         picture:updateWorkInput.picture,
         title:updateWorkInput.title
       },
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Tag:true,
           Work:true
@@ -72,7 +72,7 @@ export class WorkService {
     if(!find) return new Work()
     return await this.prisma.work.delete({
       where:{id:id},
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Tag:true,
           Work:true

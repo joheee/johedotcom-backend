@@ -25,24 +25,36 @@ model SocialMedia {
 }
 
 model Work {
-  id          String    @id @default(uuid())
+  id          String        @id @default(uuid())
   picture     String
   title       String
   description String
-  createdAt   DateTime  @default(now())
-  workTags    WorkTag[]
+  createdAt   DateTime      @default(now())
+  workBlogTags WorkBlogTag[]
 }
 
-model WorkTag {
-  id     String  @id @default(uuid())
-  Work   Work?   @relation(fields: [workId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  workId String?
-  Tag    Tag?    @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  tagId  String?
+model Blog {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+  url         String
+  createdAt   DateTime      @default(now())
+  workBlogTags WorkBlogTag[]
 }
 
 model Tag {
-  id       String    @id @default(uuid())
-  title    String
-  workTags WorkTag[]
+  id          String        @id @default(uuid())
+  title       String
+  workBlogTags WorkBlogTag[]
+}
+
+model WorkBlogTag {
+  id String @id @default(uuid())
+
+  Work   Work?   @relation(fields: [workId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  workId String?
+  Blog   Blog?   @relation(fields: [blogId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  blogId String?
+  Tag    Tag?    @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tagId  String?
 }

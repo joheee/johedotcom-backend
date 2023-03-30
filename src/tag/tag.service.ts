@@ -19,10 +19,11 @@ export class TagService {
 
   async findAll() : Promise<Tag[]> {
     return await this.prisma.tag.findMany({
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Work:true,
-          Tag:true
+          Tag:true,
+          Blog:true
         }
       }}
     })
@@ -31,10 +32,11 @@ export class TagService {
   async findOne(id: string) : Promise<Tag> {
     const find = await this.prisma.tag.findFirst({
       where:{id:id},
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Work:true,
-          Tag:true
+          Tag:true,
+          Blog:true
         }
       }}
     })
@@ -52,10 +54,11 @@ export class TagService {
       data:{
         title:updateTagInput.title
       },
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Work:true,
-          Tag:true
+          Tag:true,
+          Blog:true
         }
       }}
     })
@@ -68,10 +71,11 @@ export class TagService {
     if(!find) return new Tag()
     return await this.prisma.tag.delete({
       where:{id:id},
-      include:{workTags:{
+      include:{workBlogTags:{
         include:{
           Work:true,
-          Tag:true
+          Tag:true,
+          Blog:true
         }
       }}
     })
